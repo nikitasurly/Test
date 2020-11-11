@@ -22,7 +22,7 @@
 
     <dependencies>
 <!--         Ваши зависимости-->
-         <!-- https://mvnrepository.com/artifact/junit/junit -->
+        <!-- https://mvnrepository.com/artifact/junit/junit -->
          <dependency>
              <groupId>junit</groupId>
              <artifactId>junit</artifactId>
@@ -45,7 +45,7 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>4.3.10.Final</version>
+            <version>5.4.15.Final</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
