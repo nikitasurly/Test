@@ -6,9 +6,6 @@ import org.hibernate.Session;
 import org.hibernate.query.NativeQuery;
 import org.hibernate.query.Query;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 import java.util.List;
 
 @SuppressWarnings("ALL")
@@ -52,7 +49,6 @@ public class UserDaoHibernateImpl implements UserDao {
         try (Session session = Util.hibernateConnect().openSession()) {
             User user = new User(name, lastName, age);
             session.beginTransaction();
-            user.setId(null);
             session.save(user);
             session.getTransaction().commit();
             System.out.printf(
@@ -82,12 +78,9 @@ public class UserDaoHibernateImpl implements UserDao {
     @Override
     public List<User> getAllUsers() {
         try (Session session = Util.hibernateConnect().openSession()) {
-            CriteriaBuilder cb = session.getCriteriaBuilder();
-            CriteriaQuery<User> cr = cb.createQuery(User.class);
-            Root<User> root = cr.from(User.class);
-            cr.select(root);
-            Query<User> query = session.createQuery(cr);
-            return query.getResultList();
+            List<User> users = session.createQuery("FROM User").list();
+            users.forEach(user -> new User());
+            return users;
         } catch (Exception exception) {
             System.err.println("****\nИСКЛЮЧЕНИЕ ПРИ ПОЛУЧЕНИИ " +
                     "ВСЕХ ПОЛЬЗОВАТЕЛЕЙ ИЗ БАЗЫ\n****");
